@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="All Test Suite">
+    <test verbose="2" preserve-order="true" name="/home/tetiana_kharyna/workspace/automation/automatedtests">
+        <classes>
+            <class name="base.BaseTest">
+                <methods>
+                    <include name="getTitleTest"/>
+                    <include name="getCurrentUrlTest"/>
+                    <include name="isSearchBoxDisplayedTest"/>
+                    <include name="isCharsetDefinedTest"/>
+                    <include name="isLandEngUA"/>
+                    <include name="verifyLogoTest"/>
+                </methods>
+            </class>
+        </classes>
+    </test>
+</suite>

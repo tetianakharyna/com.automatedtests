@@ -4,162 +4,133 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
-import pages.SearchPage;
+import org.testng.asserts.SoftAssert;
 
-import java.util.List;
-
-import static java.lang.Thread.sleep;
+import static org.testng.Assert.assertEquals;
 import static org.testng.Assert.assertTrue;
 
 public class SearchTests extends BaseTest {
 
-
-//    @Test
-//    public void logoVisibilityTest2() {
-//        assertTrue(logoVisible);
-//    }
+    SoftAssert sa = new SoftAssert();
 
     @Test
-    public void searchResultsTest () throws InterruptedException {
-        searchPage.enterText("Selenium");
-        searchPage.submitSearch();
-        for (WebElement title : searchPage.getAllTitles())
-        {
-            assertTrue(title.getText().contains("Selenium"), "Act: "+title.getText());
-        }
-    }
-
-    @Test
-    public void clickOnResultTest (){
-        searchPage.enterText();
-    }
-}
-
-/*
-  public WebDriver driver;
-    public By logo = By.id("hplogoooooo");
-
-    @BeforeClass
-    public void setUp() {
-        System.setProperty("webdriver.chrome.driver", "recouses/chromedriver");
-        driver = new ChromeDriver();
-        driver.manage().window().maximize();
-    }
-
-    @AfterClass
-    public void tearDown() {
-        driver.quit();
-    }
-
-    @BeforeMethod
-    private void bm() {
-        driver.get("https://www.google.com/");
-    }
-
-    //1 Відкрити google; Провести пошук по слову selenium; Провести перевірку наявності нашого слова у всіх темах пошукової видачі.
-    @Test
-    public void searchResultTest() {
-        SoftAssert sa = new SoftAssert();
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.sendKeys("Selenium");
-        searchBox.submit();
-        List<WebElement> allTitles = driver.findElements(By.xpath("//h3[@class=\"LC20lb\"]"));
-        for (WebElement title : allTitles)
-        {
-            var titleText = title.getText();
-            //assertTrue(titleText.contains("Selenium"));
-            sa.assertTrue(titleText.contains("Seleniu22222m"), "Exp: contains Seleniu11m; Act: "+titleText);
+    public void searchResultsTest() throws InterruptedException {
+        searchPage.submitSearch("Selenium");
+        for (WebElement title : searchPage.getAllTitles()) {
+            sa.assertTrue(title.getText().contains("Selenium"), "Act: " + title.getText());
         }
         sa.assertAll();
     }
 
-
-    //2 Відкрити google; Провести пошук по слову selenium; Знайти в пошуковій видачі тему з сайту seleniumhq.org (https://selenium.dev) та перейти по ній; Прости перевірку вдалого переходу;
     @Test
-    public void clickOnResultTest() {
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.sendKeys("Selenium");
-        searchBox.submit();
-        WebElement seleniumSite = driver.findElement(By.xpath("//cite[ contains (., \"https://selenium.dev\")]"));
-        seleniumSite.click();
-        assertEquals(driver.getCurrentUrl(), "https://selenium.dev/", "not https://selenium.dev/");
+    public void linkResultsTest() {
+        searchPage.submitSearch("Selenium");
+        searchPage.getSeleniumWebsite().click();
+        assertEquals(driver.getCurrentUrl(), "https://selenium.dev/", "Act: not https://selenium.dev/" + driver.getCurrentUrl());
     }
 
-    // 3. Відкрити google; Провести пошук по слову selenium; Перейти на другу сторінку результатів пошуку; Провести перевірку коректного переходу.
     @Test
-    public void paginationSTest() {
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.sendKeys("Selenium");
-        searchBox.submit();
-        WebElement secondPaginationElement = driver.findElement(By.xpath("//td[3]/a"));
-        secondPaginationElement.click();
+    public void paginationTests() {
+        searchPage.submitSearch("Selenium");
+        searchPage.getPaginationElement().click();
         assertTrue(driver.getCurrentUrl().contains("start=10"));
     }
 
-    // 4. Відкрити google; Провести перевірку автокомпліту; В пошуковий інпут уводимо seleniu; Проводимо перевірку що у всіх варіантах присутній selenium.
-    // не відпрацьовує
     @Test
-    public void checkAllSuggestions() throws InterruptedException {
-        driver.get("https://www.google.com/search?ei=-x7dXYj2I82asAe2942wAQ&q=selenium&oq=seleniu&gs_l=psy-ab.1.0.0l10.2002.3446..5185...0.0..0.105.784.9j1......0....1..gws-wiz.....0..0i67j0i131.w-_btgVv0Rw");
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.clear();
-        searchBox.sendKeys("Seleniu");
-        WebDriverWait wait = new WebDriverWait(driver, 10);
+    public void checkRelevanceOfSuggestions() throws InterruptedException {
+        searchPage.submitSearch("1");
+        searchPage.clearInputField();
+        searchPage.enterText("Seleniu");
         Thread.sleep(1500);
-        //wait.until(ExpectedConditions.visibilityOfAllElements(By.xpath("//*[@class  =\"sbl1\"]")));
-        List<WebElement> allOptions = driver.findElements(By.xpath("//li[@jsaction]//div[@class  =\"sbl1\"]"));
-        for (WebElement option : allOptions) {
-            System.out.println(option.getText());
-            assertTrue(option.getText().contains("selenium"), "Act: "+option.getText());
+        searchPage.getAllOptions();
+        for (WebElement option : searchPage.getAllOptions()) {
+            sa.assertTrue(option.getText().contains("selenium"), "Act: " + option.getText()); //запитати Вадимa як зробити красіво
         }
+        sa.assertAll();
     }
 
     //5. Відкрити google; Провести перевірку автокомпліту; В пошуковий інпут уводимо seleniu; У списку вибираємо selenium webdriver; Провести перевірку коректного переходу.
     @Test
-    public void linkFromSuggestionsTest() {
-        WebElement searchBox = driver.findElement(By.name("q"));
-        searchBox.sendKeys("Seleniu");
-        WebDriverWait wait = new WebDriverWait(driver, 2);
-       // wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//b [contains (., \"webdriver\")]/ancestor:: span")));
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//b [contains (., \"webdriver\")]"))).click();
-       // driver.findElement(By.xpath("//b [contains (., \"webdriver\")]")).click();
-        assertTrue(driver.getCurrentUrl().contains("q=selenium+webdriver"));
+    public void checkLinkFromSuggestions() throws InterruptedException {
+        searchPage.submitSearch("1");
+        searchPage.clearInputField();
+        searchPage.enterText("seleniu");
+        Thread.sleep(1500);
+        searchPage.getWebdriverSuggestion().click();
+        assertTrue(driver.getCurrentUrl().contains("q=selenium+webdriver"), "Act: " + driver.getCurrentUrl());
     }
 
     //6. Провести перевірку екранної клавіатури; Відкрити google; Увімкнути клавіатуру; Увести selenium (123); Провести перевірку наявності пошукового слова в інпуті.
     @Test
-    public void onscreenKeyboardTest() {
-        driver.findElement(By.xpath("//*[@class=\"hOoLGe\"]")).click();
-        WebDriverWait wait = new WebDriverWait(driver, 15);
-        wait.until(ExpectedConditions.presenceOfElementLocated(By.xpath(" //*[@id=\"kbd\"]")));
-//        var letters = new char[] {'1', '2', '3'};
+    public void onscreenKeyboardTest() throws InterruptedException {
+        searchPage.getOnscreenKeyboordButton().click();
+        Thread.sleep(1500);
         String str = "987438754764873287536";
-        setText(str);
+        searchPage.setText(str);
         WebElement searchBox = driver.findElement(By.name("q"));
         String inputValue = searchBox.getAttribute("value");
-        assertTrue(inputValue.equals(str));
+        assertTrue(inputValue.equals(str), "Act: input field doesn't contain  " + str + "contain " + searchBox.getAttribute("value"));
     }
-
 
     //7. Відкрити google; Провести перевірку наявності логотипу на сторінці.
     @Test
-    public void logoVisibilityTest() {
-        boolean logoVisible = driver.findElement(logo).isDisplayed();
-               assertTrue(logoVisible);
+    public void logoIsPresentTest() {
+        assertTrue(searchPage.isLogoVisible(), "Exp: logo is not visible");
     }
 
-    private void setText(String str){
-        char[] letters = str.toCharArray();
-        for (char letter : letters) {
-            int asciiCode = (int)letter;
-            driver.findElement(By.xpath("//*[@id=\"K" + asciiCode + "\"]")).click();
+    //9. Тест з картинкою
+    @Test
+    public void imgSearchTest() throws InterruptedException {
+        driver.get("https://www.google.com/search?biw=1680&bih=971&tbm=isch&sa=1&ei=Ni3cXc-hIa_prgSYsJ2oAg&q=img&oq=img&gs_l=img.3..0l10.2433.3519..3839...0.0..0.85.242.3..");
+        searchPage.fileUpload();
+        for (WebElement title : searchPage.getAllTitles()) {
+            sa.assertTrue(title.getText().contains("Homer"), "Act: " + title.getText());
         }
-    }
-
-    private WebElement findButton(char c) {
-        int asciiCode = (int)c;
-        return driver.findElement(By.xpath("//*[@id=\"K" + asciiCode + "\"]"));
+        sa.assertAll();
     }
 }
+/*
+    //10. Tecm з побитими лінками
+    @Test
+    public void brokenLinksTest (){
+        driver.get("https://www.whoishostingthis.com/resources/http-status-codes/");
+        searchPage.getAllLinks()
+                .clear();
+        for (WebElement link : searchPage.getAllLinks()) {
+        String value = link.getAttribute("href");
+        URL myurl = new URL (value)
+        }
+
+        for (WebElement link : links) {
+
+       String value = link.getAttribute("href");
+       // For each link check response code is 200.
+       URL myurl = new URL(value);
+       HttpURLConnection connection = (HttpURLConnection) myurl.openConnection();
+       connection.setRequestMethod("HEAD");
+       int code = connection.getResponseCode();
+       Assert.assertEquals(code, 200);
+
+}
+         */
+
+
+
+
+
+
+
+
+/*
+8. Відкрити пошук картинок; Можна по прямій лінці https://www.google.com/search?biw=1680&bih=971&tbm=isch&sa=1&ei=Ni3cXc-hIa_prgSYsJ2oAg&q=img&oq=img&gs_l=img.3..0l10.2433.3519..3839...0.0..0.85.242.3......0....1..gws-wiz-img.......0i67.ghJSNzJKdG0&ved=0ahUKEwjPlJaHjobmAhWvtIsKHRhYByUQ4dUDCAc&uact=5
+Провести пошук по картинці через завантаження файлу
+
+Провести перевірку наявності у всіх темах Homer/Гомер; Враховуючи uppercase/lowercase
+Теорія
+https://kreisfahrer.gitbooks.io/selenium-webdriver/content/otpravlenie_faila_upload.html
+9.
+Написвти тест який перейде по https://www.whoishostingthis.com/resources/http-status-codes/
+Виявить всі поломані лінки на сторінці (code!=200)
+Один з підходів https://www.toolsqa.com/selenium-webdriver/finding-broken-links-selenium-automation/
 
  */

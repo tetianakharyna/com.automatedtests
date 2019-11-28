@@ -3,18 +3,20 @@ package pages;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-
-import javax.naming.directory.SearchResult;
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.util.List;
+import java.net.URL;
+import java.util.NoSuchElementException;
+import org.openqa.selenium.Cookie;
 
 
 public class SearchPage {
 
     private WebDriver driver;
 
-    private By logo = By.id("hplogo");
+    private By logo = By.id("hplogo11");
     private By inputField = By.name("q");
-    private By searchGoogleButton = By.xpath("//div[@class=\"FPdoLc tfB0Bf\"]/input");
     private By seleniumWebsite = By.xpath("//cite[ contains (., \"https://selenium.dev\")]");
     private By webdriverSuggestion = By.xpath("//b [contains (., \"webdriver\")]");
     private By onscreenKeyboadButton = By.xpath("//* [ @class=\"hOoLGe\"]");
@@ -23,16 +25,17 @@ public class SearchPage {
     private By allOptions = By.xpath("//li[@jsaction]//div[@class=\"sbl1\"]");
 
 
-    //private By imageSearchButton = By.xpath("//span[@class=\"BwoPOe\"]");
     private By imageSearchButton = By.xpath("//*[@aria-label=\"Пошук за зображенням\"]");
     private By imageUploadButton = By.xpath(" //*[@class=\"qbwr\"]/a");
     private By chooseFileButton = By.xpath("//input[@id=\"qbfile\"]");
+    private By allLinks = By.partialLinkText("HTTP");
+    private By iacceptButton = By.xpath(" //button[contains (.,\"I accept\")] ");
 
-    private By allLinks =By.partialLinkText("HTTP");
 
-    public List<WebElement> getAllLinks (){
-        return driver.findElements(allLinks);
+    public SearchPage(WebDriver driver) {
+        this.driver = driver;
     }
+
     public List<WebElement> getAllOptions() {
         return driver.findElements(allOptions);
     }
@@ -61,8 +64,15 @@ public class SearchPage {
         return driver.findElement(logo).isDisplayed();
     }
 
-    public SearchPage(WebDriver driver) {
-        this.driver = driver;
+    public boolean isLogoVisible2 () {
+        try {
+         driver.findElement(logo);
+         return true;
+     } catch (NoSuchElementException exception) {
+         exception.printStackTrace();
+         System.out.println("Not found");
+         return false;
+     }
     }
 
     public void enterText(String text) {
@@ -76,6 +86,11 @@ public class SearchPage {
 
     public void clearInputField() {
         driver.findElement(inputField).clear();
+    }
+
+    public void getGoogleResultsPage (){
+        submitSearch("123");
+        clearInputField();
     }
 
     public void setText(String str) {
@@ -94,8 +109,45 @@ public class SearchPage {
     public void fileUpload() throws InterruptedException {
         Thread.sleep(3000);
         driver.findElement(imageSearchButton).click();
-        Thread.sleep(1500);
+        Thread.sleep(3000);
         driver.findElement(imageUploadButton).click();
         driver.findElement(chooseFileButton).sendKeys("/home/tetiana_kharyna/workspace/automation/automatedtests/resources/img/homer simpson.jpg");
     }
+
+    public void acceptGdrp () throws InterruptedException {
+        driver.get("https://fabiosa.ru/");
+        driver.manage().deleteAllCookies();
+        Thread.sleep(1500);
+        driver.findElement(iacceptButton).click();
+    }
+
+    public boolean isCookiePresent(Cookie cookie){
+        return driver.manage().getCookieNamed(cookie.getName()) != null;
+    }
+
+    public Cookie getCookieNamed(String name) {
+        return driver.manage().getCookieNamed(name);
+    }
+
+    public String getAttributeValue (){
+        return driver.findElement(inputField).getAttribute("value");
+    }
+
+    public List<WebElement> getAllLinks (){
+        return driver.findElements(allLinks);
+    }
+
+    public String isLinkBroken (URL url) throws IOException {
+        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+        String response = " ";
+        try
+        {connection.connect();
+            response = connection.getResponseMessage();
+            connection.disconnect();
+            return response;}
+        catch (Exception exp) {
+            return exp.getMessage();
+        }
+    }
 }
+

@@ -4,19 +4,22 @@ import base.BaseTest;
 import org.openqa.selenium.By;
 import org.openqa.selenium.Cookie;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
-import java.util.NoSuchElementException;
 
 import static org.testng.Assert.*;
 
 public class SearchTests extends BaseTest {
 
     SoftAssert sa = new SoftAssert();
+    public int statusCode;
+
 
     @Test
     public void searchResultsTest() {
@@ -56,9 +59,9 @@ public class SearchTests extends BaseTest {
         sa.assertAll();
     }
 
-     /*
-     Відкрити google; Провести перевірку автокомпліту; В пошуковий інпут уводимо seleniu; У списку вибираємо selenium webdriver; Провести перевірку коректного переходу.
-     */
+    /*
+    Відкрити google; Провести перевірку автокомпліту; В пошуковий інпут уводимо seleniu; У списку вибираємо selenium webdriver; Провести перевірку коректного переходу.
+    */
     @Test
     public void checkLinkFromSuggestions() throws InterruptedException {
         searchPage.getGoogleResultsPage();
@@ -78,7 +81,7 @@ public class SearchTests extends BaseTest {
         Thread.sleep(1500);
         searchPage.setText("987438754764873287536");
         searchPage.getAttributeValue();
-        assertTrue(searchPage.getAttributeValue().equals("987438754764873287536"), "Act: input field doesn't contain 987438754764873287536  "  + "contain " + searchPage.getAttributeValue());
+        assertTrue(searchPage.getAttributeValue().equals("987438754764873287536"), "Act: input field doesn't contain 987438754764873287536  " + "contain " + searchPage.getAttributeValue());
     }
 
     /*
@@ -87,11 +90,7 @@ public class SearchTests extends BaseTest {
 
     @Test
     public void logoIsPresentTest() {
-             assertTrue(searchPage.isLogoVisible2(), "Exp: logo is not visible");
-    }
-
-    @Test
-    public void logoIsPresentTest2() { assertTrue(searchPage.isLogoVisible(), "Exp: logo is not visible");
+        assertTrue(searchPage.isLogoVisible(), "Act: logo is not visible on the page");
     }
 
     /*
@@ -109,39 +108,73 @@ public class SearchTests extends BaseTest {
     }
 
     /*
-    Find all broken links (code!=200)
-    Example: https://www.toolsqa.com/selenium-webdriver/finding-broken-links-selenium-automation/
+    Тест з куками
+     */
+    @Test
+    public void cookiesTest() throws InterruptedException {
+        searchPage.acceptGdrp();
+        Cookie cookieGooglepersonalization = searchPage.getCookieNamed("googlepersonalization");
+        assertNotNull(cookieGooglepersonalization, "Act: cookie googlepersonalization aren't found");
+    }
+
+    /*
+    Тест на поламані лінки
      */
 
     @Test
-    public void brokenLinksTest() throws InterruptedException {
+    public void brokenLinksTest1() throws MalformedURLException {
         driver.get("https://www.whoishostingthis.com/resources/http-status-codes/");
         searchPage.getAllLinks();
-        // System.out.println(searchPage.getAllLinks().size());
-        //java.util.List<WebElement> links = driver.findElements(By.partialLinkText("HTTP"));
         for (WebElement link : searchPage.getAllLinks()) {
+           String urlLink = link.getAttribute("href");
+           assertTrue(searchPage.isLinkBroken(new URL(urlLink)), "ggggggg");
         }
+    }
+
+    @Test
+    public  void brokenKinksTest2 () throws IOException, InterruptedException {
+        driver.get("https://www.whoishostingthis.com/resources/http-status-codes/");
+        SoftAssert sa = new SoftAssert();
+        Thread.sleep(2000);
+        List<WebElement> links = driver.findElements(By.tagName("a"));
+        for(int i = 0; i < links.size(); i++){
+            if(!(links.get(i).getAttribute("href") == null) && !(links.get(i).getAttribute("href").equals(""))){
+                if(links.get(i).getAttribute("href").contains("http")){
+                    statusCode= getResponseCode(links.get(i).getAttribute("href").trim());
+                    if(statusCode != 200){
+                        System.out.println("Act: broken links  " + i + " " + links.get(i).getAttribute("href"));
+                    };
+                }
+            }
+        }
+    }
+    public int getResponseCode(String urlString) throws MalformedURLException, IOException{
+        URL url = new URL(urlString);
+        HttpURLConnection huc = (HttpURLConnection)url.openConnection();
+        huc.setRequestMethod("GET");
+        huc.connect();
+        return huc.getResponseCode();
+    }
     }
     /*
-    Тест з куками
+    Output:
+    Act: broken links  31 https://www.whoishostingthis.com/hosting-reviews/ukit/
+    Act: broken links  229 http://iana.org/
      */
 
-        @Test
-        public void cookiesTest () throws InterruptedException {
-            searchPage.acceptGdrp();
-            Cookie cookieGooglepersonalization = searchPage.getCookieNamed("googlepersonalization");
-            assertNotNull(cookieGooglepersonalization, "Act: cookie googlepersonalization aren't found");
-        }
+       /*
+       запитати Вадима чому некоретно відпрацьовують асерти в цьому варіанті варіанті
+   @Test
+    public void cookiesTest2() throws InterruptedException {
+        SoftAssert softAssert = new SoftAssert();
+        searchPage.acceptGdrp();
+        Cookie cookieGooglepersonalization = searchPage.getCookieNamed("googleperso11nalization");
+        Cookie cookieEuconsent = searchPage.getCookieNamed("euconsent");
+        softAssert.assertTrue(cookieGooglepersonalization != null, "Act: cookie googlepersonalization not found");
+        softAssert.assertTrue(cookieEuconsent != null, "Act: cookie euconsent not found");
+        softAssert.assertAll();
     }
 
-
-       /*
-       ASK VADYM
-
-       Cookie cookieEuconsent = searchPage.getCookieNamed("euconsent");
-       sa.assertTrue(cookieGooglepersonalization != null, "Act: cookie googlepersonalization not found");
-       sa.assertTrue(cookieEuconsent != null, "Act: cookie googlepersonalization not found");
-       assertTrue(searchPage.isCookiePresent(cookieGooglepersonalization), "Act: cookies \"googlepersonalization\" aren't present"); //ask Kerem why I have NullPointerException here
        */
 
 

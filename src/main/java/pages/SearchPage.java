@@ -15,7 +15,7 @@ public class SearchPage {
 
     private WebDriver driver;
 
-    private By logo = By.id("hplogo11");
+    private By logo = By.id("hplogo");
     private By inputField = By.name("q");
     private By seleniumWebsite = By.xpath("//cite[ contains (., \"https://selenium.dev\")]");
     private By webdriverSuggestion = By.xpath("//b [contains (., \"webdriver\")]");
@@ -23,12 +23,12 @@ public class SearchPage {
     private By paginationElement = By.xpath("//a[@aria-label=\"Page 2\"]");
     private By allTitles = By.xpath("//h3[@class=\"LC20lb\"]");
     private By allOptions = By.xpath("//li[@jsaction]//div[@class=\"sbl1\"]");
-
-
     private By imageSearchButton = By.xpath("//*[@aria-label=\"Пошук за зображенням\"]");
     private By imageUploadButton = By.xpath(" //*[@class=\"qbwr\"]/a");
     private By chooseFileButton = By.xpath("//input[@id=\"qbfile\"]");
-    private By allLinks = By.partialLinkText("HTTP");
+
+
+    private By allLinks = By.tagName("a");
     private By iacceptButton = By.xpath(" //button[contains (.,\"I accept\")] ");
 
 
@@ -60,17 +60,12 @@ public class SearchPage {
         return driver.findElement(onscreenKeyboadButton);
     }
 
-    public boolean isLogoVisible() {
-        return driver.findElement(logo).isDisplayed();
-    }
-
-    public boolean isLogoVisible2 () {
+    public boolean isLogoVisible () {
         try {
          driver.findElement(logo);
          return true;
-     } catch (NoSuchElementException exception) {
-         exception.printStackTrace();
-         System.out.println("Not found");
+     } catch (org.openqa.selenium.NoSuchElementException exception) {
+         System.out.println("Element wasn't found");
          return false;
      }
     }
@@ -121,10 +116,6 @@ public class SearchPage {
         driver.findElement(iacceptButton).click();
     }
 
-    public boolean isCookiePresent(Cookie cookie){
-        return driver.manage().getCookieNamed(cookie.getName()) != null;
-    }
-
     public Cookie getCookieNamed(String name) {
         return driver.manage().getCookieNamed(name);
     }
@@ -137,16 +128,18 @@ public class SearchPage {
         return driver.findElements(allLinks);
     }
 
-    public String isLinkBroken (URL url) throws IOException {
-        HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-        String response = " ";
+    public Boolean isLinkBroken (URL url){
         try
-        {connection.connect();
+        {
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            String response = " ";
+            connection.connect();
             response = connection.getResponseMessage();
             connection.disconnect();
-            return response;}
+            return false;
+        }
         catch (Exception exp) {
-            return exp.getMessage();
+            return true;
         }
     }
 }

@@ -7,6 +7,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
+import org.testng.asserts.SoftAssert;
 import pages.SearchPage;
 
 
@@ -14,8 +15,10 @@ import pages.SearchPage;
 
 
 public class BaseTest {
+
     public WebDriver driver;
     protected SearchPage searchPage;
+    protected SoftAssert sa;
 
     @BeforeClass
     public void setUp() {
@@ -25,14 +28,14 @@ public class BaseTest {
     }
 
     @AfterClass
-    public void tearDown() {
-        driver.quit();
+    public void tearDown() { driver.quit();
     }
 
     @BeforeMethod
     protected void goSearchMethod() {
         driver.get("https://www.google.com.ua/");
         searchPage = new SearchPage(driver);
+        sa = new SoftAssert();
     }
 }
 

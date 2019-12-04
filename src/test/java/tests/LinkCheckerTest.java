@@ -8,8 +8,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
-import pages.FabiosaIndexPage;
-import pages.LinkCheckerHelper;
+import utils.LinkCheckerHelper;
 
 import java.io.IOException;
 import java.util.List;
@@ -41,7 +40,7 @@ public class LinkCheckerTest {
     */
 
     @Test
-    public void brokenKinksTest2() throws IOException, InterruptedException {
+    public void brokenlinksTest() throws IOException, InterruptedException {
         linkCheckerHelper.getPage("https://www.whoishostingthis.com/resources/http-status-codes/");
         SoftAssert sa = new SoftAssert();
         List<WebElement> links = driver.findElements(By.tagName("a"));

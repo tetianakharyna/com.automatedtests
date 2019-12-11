@@ -1,5 +1,6 @@
 package pages;
 
+import org.apache.log4j.Logger;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -21,13 +22,12 @@ public class SearchPage {
     private By onscreenKeyboadButton = By.xpath("//* [ @class=\"hOoLGe\"]");
     private By allTitles = By.xpath("//h3[@class=\"LC20lb\"]");
     private By allOptions = By.xpath("//li[@jsaction]//div[@class=\"sbl1\"]");
-    private By imageSearchButton = By.xpath("//*[@aria-label=\"Пошук за зображенням\"]");
+    private By imageSearchButton = By.xpath("//*[@class=\"LM8x9c\"]");
     private By imageUploadButton = By.xpath(" //*[@class=\"qbwr\"]/a");
     private By chooseFileButton = By.xpath("//input[@id=\"qbfile\"]");
 
 
-    private By allLinks = By.tagName("a");
-
+    //private static Logger logger = Logger.getLogger(SearchPage.class);
 
     public SearchPage(WebDriver driver) {
         this.driver = driver;
@@ -49,7 +49,6 @@ public class SearchPage {
 
     public void getPageNumber (Integer label){
         driver.findElement(By.xpath("//*[@aria-label=\"Page "+label+"\"]")).click();
-
     }
 
     public SearchPage clickSuggestion (String word) throws InterruptedException {
@@ -61,23 +60,30 @@ public class SearchPage {
 
 
     public SearchPage getOnscreenKeyboardButton() {
-         driver.findElement(onscreenKeyboadButton).click();
-         return this;
+        try {
+            driver.findElement(onscreenKeyboadButton).click();
+            return this;
+        } catch (org.openqa.selenium.NoSuchElementException exception) {
+            return this;
+        }
     }
-
     public boolean isLogoVisible () {
         try {
          driver.findElement(logo).isDisplayed();
          return true;
      } catch (org.openqa.selenium.NoSuchElementException exception) {
-         System.out.println("Element wasn't found");
          return false;
      }
     }
 
     public SearchPage enterText(String text) {
-        driver.findElement(inputField).sendKeys(text);
-        return this;
+        try {
+            driver.findElement(inputField).sendKeys(text);
+            return this;
+        } catch (org.openqa.selenium.NoSuchElementException exception){
+            return this;
+
+        }
     }
 
     public SearchPage submitSearch(String text) {
@@ -137,7 +143,7 @@ public class SearchPage {
         assertTrue(driver.getCurrentUrl().contains(attribute), "Act: URL doesn't have " + attribute);
     }
 
-    public SearchPage doThetWait (){
+    public SearchPage doWait (){
         driver.manage().timeouts().implicitlyWait(2, TimeUnit.SECONDS);
         return this;
     }
@@ -145,10 +151,6 @@ public class SearchPage {
 
     public void getAttributeValue (String text){
         assertEquals(text, driver.findElement(inputField).getAttribute("value"), "Act: element't doesn't contain");
-    }
-
-    public List<WebElement> getAllLinks (){
-        return driver.findElements(allLinks);
     }
 
 

@@ -1,0 +1,136 @@
+2019-12-04 17:34:27 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:34:27 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:27 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:34:27 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:28 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:34:28 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:28 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:34:28 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:28 DEBUG EventReporter:81 - Should be By.xpath: //li[@jsaction]//div[@class="sbl1"]
+2019-12-04 17:34:28 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:28 DEBUG EventReporter:81 - Should be By.xpath: //b [contains (., "webdriver")]
+2019-12-04 17:34:28 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:34:28 DEBUG EventReporter:92 - Should click b
+2019-12-04 17:34:29 DEBUG EventReporter:97 - CLICKED
+2019-12-04 17:34:30 DEBUG EventReporter:81 - Should be By.xpath: //li[@jsaction]//div[@class="sbl1"]
+2019-12-04 17:34:32 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:11 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:37:11 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:11 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:37:11 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:41 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:37:41 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:41 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 17:37:41 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:41 DEBUG EventReporter:81 - Should be By.xpath: //b [contains (., "webdriver")]
+2019-12-04 17:37:42 DEBUG EventReporter:86 - Element is found
+2019-12-04 17:37:42 DEBUG EventReporter:92 - Should click b
+2019-12-04 18:27:47 DEBUG EventReporter:81 - Should be By.xpath: //* [ @class="hOoLGe"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click span
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.xpath: //*[@id="K49"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click button
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.xpath: //*[@id="K50"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click button
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.xpath: //*[@id="K51"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click button
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.xpath: //*[@id="K52"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click button
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.xpath: //*[@id="K53"]
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-04 18:27:48 DEBUG EventReporter:92 - Should click button
+2019-12-04 18:27:48 DEBUG EventReporter:97 - CLICKED
+2019-12-04 18:27:48 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-04 18:27:48 DEBUG EventReporter:86 - Element is found
+2019-12-05 13:38:18 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-05 13:38:18 DEBUG EventReporter:86 - Element is found
+2019-12-05 13:38:19 DEBUG EventReporter:81 - Should be By.name: q
+2019-12-05 13:38:19 DEBUG EventReporter:86 - Element is found
+2019-12-05 13:38:20 DEBUG EventReporter:81 - Should be By.xpath: //*[@aria-label="Page 2"]
+2019-12-05 13:38:20 DEBUG EventReporter:86 - Element is found
+2019-12-05 13:38:20 DEBUG EventReporter:92 - Should click a
+2019-12-05 13:38:21 DEBUG EventReporter:97 - CLICKED
+2019-12-05 14:08:44 INFO  SearchPage:72 - Logo is found
+2019-12-05 14:14:10 ERROR SearchPage:76 - Logo wasn't fond
+2019-12-05 14:15:18 ERROR SearchPage:76 - Logo wasn't fond
+2019-12-05 14:44:35 INFO  SearchPage:70 - Clicked on the onscreen keyboard button successfully
+2019-12-05 14:44:36 INFO  SearchPage:116 - text was set
+2019-12-05 14:44:36 INFO  SearchPage:161 - 1222222222
+2019-12-05 14:45:34 INFO  SearchPage:70 - Clicked on the onscreen keyboard button successfully
+2019-12-05 14:45:35 INFO  SearchPage:116 - text was set
+2019-12-05 14:45:35 INFO  SearchPage:161 - 1222222222
+2019-12-05 14:46:20 INFO  SearchPage:70 - Clicked on the onscreen keyboard button successfully
+2019-12-05 14:46:21 INFO  SearchPage:116 - text was set
+2019-12-05 14:46:21 INFO  SearchPage:161 - 1222222222
+2019-12-05 14:47:17 ERROR SearchPage:73 - Should click By.xpath: //* [ ="hOoLGe"]
+2019-12-05 14:55:39 INFO  SearchPage:70 - Clicked on the onscreen keyboard button successfully
+2019-12-05 14:55:41 INFO  SearchPage:115 - text was set
+2019-12-05 14:55:41 INFO  SearchPage:160 - 1222222222
+2019-12-05 15:15:51 INFO  SearchPage:104 - Text was submitted
+2019-12-05 15:15:51 INFO  SearchPage:43 - All titles were founf
+2019-12-05 15:15:51 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:51 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:15:52 INFO  SearchPage:144 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:27 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:16:41 INFO  SearchPage:143 - All titles were found
+2019-12-05 15:17:25 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:17:51 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:18:26 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:18:27 INFO  SearchPage:48 - Clicked on the site successfully
+2019-12-05 15:18:50 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:18:52 INFO  SearchPage:54 - Clicked on the page number successfully
+2019-12-05 15:19:15 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:19:15 INFO  SearchPage:109 - Inpur field was cleared
+2019-12-05 15:19:15 INFO  SearchPage:115 - On the getGoogleResultsPage
+2019-12-05 15:19:15 INFO  SearchPage:91 - Text was entered in the  input field
+2019-12-05 15:19:16 INFO  SearchPage:61 - Clicked on the suggestion from a drop down list of suggestions successfully
+2019-12-05 15:24:41 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:24:41 INFO  SearchPage:109 - Inpur field was cleared
+2019-12-05 15:24:41 INFO  SearchPage:115 - On the getGoogleResultsPage
+2019-12-05 15:24:41 INFO  SearchPage:91 - Text was entered in the  input field
+2019-12-05 15:24:42 INFO  SearchPage:61 - Clicked on the suggestion from a drop down list of suggestions successfully
+2019-12-05 15:25:06 INFO  SearchPage:103 - Text was submitted
+2019-12-05 15:25:06 INFO  SearchPage:109 - Inpur field was cleared
+2019-12-05 15:25:06 INFO  SearchPage:115 - On the getGoogleResultsPage
+2019-12-05 15:25:06 INFO  SearchPage:91 - Text was entered in the  input field
+2019-12-05 15:25:07 INFO  SearchPage:61 - Clicked on the suggestion from a drop down list of suggestions successfully
+2019-12-05 15:25:41 ERROR SearchPage:83 - Logo wasn't fond
+2019-12-05 15:26:17 INFO  SearchPage:131 - Clicked on the image search button successfully
+2019-12-05 15:26:20 INFO  SearchPage:134 - Clicked on the image upload button successfully
+2019-12-05 15:26:24 INFO  SearchPage:136 - Image was uploaded

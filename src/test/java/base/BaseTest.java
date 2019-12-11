@@ -1,29 +1,30 @@
 package base;
 
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.asserts.SoftAssert;
 import pages.SearchPage;
-
-
-
+import utils.EventReporter;
 
 
 public class BaseTest {
 
-    public WebDriver driver;
+   // public WebDriver driver;
+    private EventFiringWebDriver driver;
     protected SearchPage searchPage;
     protected SoftAssert sa;
 
     @BeforeClass
     public void setUp() {
         System.setProperty("webdriver.chrome.driver", "resources/chromedriver");
-        driver = new ChromeDriver();
+       // driver = new ChromeDriver();
+        //driver = new ChromeDriver();
+        driver = new EventFiringWebDriver(new ChromeDriver());
+        driver.register(new EventReporter());
         driver.manage().window().maximize();
     }
 
